@@ -118,6 +118,10 @@
             geoLocation = place.geometry.location,
             valueMap = this.getValueMap()
 
+        var arrayUniqueFunction = function (value, index, self) {
+            return self.indexOf(value) === index;
+        }
+
         var extractionFunction = function(standard, google, resultType) {
             var value = []
 
@@ -127,6 +131,8 @@
             $.each(google, function(index, _google) {
                 value.push(self.getValueFromAddressObject(place, _google))
             })
+
+            value = value.filter(arrayUniqueFunction)
 
             return value.join(' ')
         }
